@@ -1,5 +1,7 @@
 package com.mirea.kt.ribo;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,6 +14,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 
 public class HTTPRunnable implements Runnable{
+
+    private static String TAG = "HTTPunnable";
 
     private String address;
     private HashMap<String, String> requestBody;
@@ -51,15 +55,19 @@ public class HTTPRunnable implements Runnable{
             try {
                 URL url = new URL(this.address);
                 URLConnection connection = url.openConnection();
+                Log.i(TAG, "connection to url");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
                 httpURLConnection.setRequestMethod("POST");
+                Log.i(TAG, "method POST for otravki dannih");
                 httpURLConnection.setDoOutput(true);
                 OutputStreamWriter osw = new OutputStreamWriter(httpURLConnection.getOutputStream());
                 osw.write(generateStringBody());
                 osw.flush();
                 int responseCode = httpURLConnection.getResponseCode();
-                System.out.println("Response Code: " + responseCode);
+
+
                 if (responseCode == 200){
+                    Log.i(TAG, "cod sostoiniz podkluchenia");
                     InputStreamReader isr = new InputStreamReader(httpURLConnection.getInputStream());
                     BufferedReader br = new BufferedReader(isr);
                     String currentLine;

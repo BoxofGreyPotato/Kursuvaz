@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import java.util.List;
 
 public class SocityFrag extends Fragment {
 
+    private final String TAG = "SocityFrag";
+
     ArrayAdapter adapter;
 
     private String path;
@@ -46,8 +49,11 @@ public class SocityFrag extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_socity, container, false);
 
+        Log.i(TAG, "otobrathenie fragmenta");
+
         lvRss = view.findViewById(R.id.lvRss);
         new ProcessInBackground().execute();
+        Log.i(TAG, "thapusk class");
 
         titles = new ArrayList<String>();
         links = new ArrayList<String>();
@@ -65,6 +71,7 @@ public class SocityFrag extends Fragment {
                 intent.putExtra("desc", descriptions.get(position));
                 intent.putExtra("link", links.get(position));
                 startActivity(intent);
+                Log.i(TAG, "thapusk activity");
             }
         });
 
@@ -73,11 +80,13 @@ public class SocityFrag extends Fragment {
 
     public InputStream getInputStream(URL url) {
         try {
+            Log.i(TAG, "soedinenie");
             return url.openConnection().getInputStream();
         } catch (IOException e) {
             return null;
         }
     }
+
 
     public class ProcessInBackground extends AsyncTask<Integer, Void, Exception> {
 
@@ -99,7 +108,9 @@ public class SocityFrag extends Fragment {
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 factory.setNamespaceAware(false);
                 XmlPullParser xpp = factory.newPullParser();
+                Log.i(TAG, "sintaksich analis");
                 xpp.setInput(getInputStream(url), "UTF_8");
+                Log.i(TAG, "poluchenie vhodnih potok dannih");
                 boolean insideItem = false;
                 int eventType = xpp.getEventType();
                 while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -109,24 +120,29 @@ public class SocityFrag extends Fragment {
                         } else if (xpp.getName().equalsIgnoreCase("title")) {
                             if (insideItem) {
                                 titles.add(xpp.nextText());
+                                Log.i(TAG, "title poluchen");
                             }
                         } else if (xpp.getName().equalsIgnoreCase("link")) {
                             if (insideItem) {
                                 links.add(xpp.nextText());
+                                Log.i(TAG, "links poluchen");
                             }
                         } else if (xpp.getName().equalsIgnoreCase("description")) {
                             if (insideItem) {
                                 descriptions.add(xpp.nextText());
+                                Log.i(TAG, "descr poluchen");
                             }
                         } else if (xpp.getName().equalsIgnoreCase("pubDate")) {
                             if (insideItem) {
                                 pubDate.add(xpp.nextText());
+                                Log.i(TAG, "pubDate poluchen");
                             }
                         }
                     } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
                         insideItem = false;
                     }
                     eventType = xpp.next();
+                    Log.i(TAG, "poluchenie sleduushei novosti");
                 }
 
 
@@ -136,18 +152,20 @@ public class SocityFrag extends Fragment {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, titles);
                     lvRss.setAdapter(adapter);
-
+                    Log.i(TAG, "sothdaem adapter");
                     SearchView searchView = view.findViewById(R.id.searchView);
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
                         public boolean onQueryTextSubmit(String query) {
                             filterData(query);
+                            Log.i(TAG, "sortirovka thaprosa ot polthovatela");
                             return true;
                         }
 
                         @Override
                         public boolean onQueryTextChange(String newText) {
                             filterData(newText);
+                            Log.i(TAG, "sortirovka otpravlenogo");
                             return true;
                         }
                     });
@@ -165,7 +183,9 @@ public class SocityFrag extends Fragment {
             }
             adapter.clear();
             adapter.addAll(filteredList);
+            Log.i(TAG, "peredaem sortirovku");
             adapter.notifyDataSetChanged();
+            Log.i(TAG, "perestroika spiska");
         }
 
         @Override
@@ -173,6 +193,7 @@ public class SocityFrag extends Fragment {
             super.onPostExecute(s);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, titles);
             lvRss.setAdapter(adapter);
+            Log.i(TAG, "sothdaem adapter");
             progressDialog.dismiss();
         }
     }

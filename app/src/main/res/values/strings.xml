@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Kirsuva</string>
     <string name="nmsc">Новости Москвы</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_check">text check</string>
+    <string name="link_check">link check</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="desc">Работу выполнил Салахов А.И. РИБО-04-22</string>
+    <string name="enter">Вход</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.mirea.kt.ribo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.HashMap;
 
 public class LobbyAct extends AppCompatActivity {
+
+    private final String TAG = "LobbyAct";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,14 +26,14 @@ public class LobbyAct extends AppCompatActivity {
         bundle.putString("path", "https://news.rambler.ru/rss/moscow_city/");
         SocityFrag frag = new SocityFrag();
         frag.setArguments(bundle);
+        Log.i(TAG, "suem v fragment bundle");
         getSupportFragmentManager().beginTransaction().replace(R.id.lsNews, frag).commit();
-
+        Log.i(TAG, "thamena fragmentov");
         HashMap<Integer, Fragment> map = new HashMap<>();
         map.put(R.id.nwmsc, new SocityFrag());
         map.put(R.id.plt, new SocityFrag());
         map.put(R.id.obsh, new SocityFrag());
         map.put(R.id.proish, new SocityFrag());
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -39,11 +42,15 @@ public class LobbyAct extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("path", getPathLs(item.getItemId()));
                 assert fragment != null;
+                Log.i(TAG, "tochno fragment n null");
                 fragment.setArguments(bundle);
+                Log.i(TAG, "argument v fragment");
                 getSupportFragmentManager().beginTransaction().replace(R.id.lsNews, fragment).commit();
+                Log.i(TAG, "thamena fragmentov");
                 return true;
             }
         });
+
 
         /*lvRss.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

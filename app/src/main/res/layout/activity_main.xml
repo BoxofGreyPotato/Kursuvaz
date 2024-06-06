@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text"
-            android:hint="Логин"/>
+            android:hint="@string/login"/>
         <EditText
             android:id="@+id/enter_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="text"
-            android:hint="Пароль"/>
+            android:hint="@string/password"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Работу выполнил Салахов А.И. РИБО-04-22"
+        android:text="@string/desc"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         />
@@ -43,7 +43,7 @@
         android:id="@+id/enterBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Вход"
+        android:text="@string/enter"
         android:layout_centerInParent="true"
         />
 

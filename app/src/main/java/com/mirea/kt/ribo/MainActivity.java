@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = "MainActivity";
     private String login;
     private String password;
     private String group;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         if (result == 1) {
                             Intent intent = new Intent(this, LobbyAct.class);
                             startActivity(intent);
+                            Log.i(TAG, "");
                         } else if (result == -1) {
                             Toast.makeText(getApplicationContext(), "Некор даныне", Toast.LENGTH_LONG).show();
                         }
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Поля пустые", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, LobbyAct.class);
                 startActivity(intent);
+                Log.i(TAG, "thapusk activity");
             }
         });
     }
