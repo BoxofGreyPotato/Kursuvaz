@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nwmsc"
+        android:title="Новости Москвы"
+        android:icon="@drawable/baseline_location_city_24"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/plt"
+        android:title="Политика"
+        android:icon="@drawable/baseline_connect_without_contact_24"
+        />
+    <item
+        android:id="@+id/obsh"
+        android:title="Общество"
+        android:icon="@drawable/baseline_accessibility_new_24"
+        />
+    <item
+        android:id="@+id/proish"
+        android:title="Проишествия"
+        android:icon="@drawable/baseline_accessible_forward_24"
+        />
+</menu>
